@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "personal-training",
+    "name": "Personal Training",
+    "shortDescription": "One-on-one coaching built around your goals.",
+    "description": "Work directly with a certified trainer on a plan designed for your body, your goals, and your schedule. Every session is tracked and adjusted as you progress.",
+    "whoItsFor": "Anyone who wants faster results with expert guidance and accountability.",
+    "image": "/images/programs/personal-training.jpg"
+  },
+  {
+    "slug": "group-classes",
+    "name": "Group Classes",
+    "shortDescription": "High-energy sessions with a supportive community.",
+    "description": "From strength circuits to HIIT, our group classes bring the energy of a crowd to push you further than you'd go alone, led by certified instructors.",
+    "whoItsFor": "Members who thrive on group motivation and variety.",
+    "image": "/images/programs/group-classes.jpg"
+  },
+  {
+    "slug": "functional-training",
+    "name": "Functional Training",
+    "shortDescription": "Real-world strength and mobility.",
+    "description": "Functional training builds the kind of strength, balance, and mobility that carries over into everyday life and sport — not just the gym floor.",
+    "whoItsFor": "Anyone who wants to move better, not just lift more.",
+    "image": "/images/programs/functional-training.jpg"
+  },
+  {
+    "slug": "cardio-endurance",
+    "name": "Cardio & Endurance",
+    "shortDescription": "Build stamina and heart health.",
+    "description": "State-of-the-art cardio equipment and structured endurance programming to build stamina, burn fat, and improve heart health at any fitness level.",
+    "whoItsFor": "Members focused on endurance, weight loss, or overall conditioning.",
+    "image": "/images/programs/cardio-endurance.jpg"
+  }
+]

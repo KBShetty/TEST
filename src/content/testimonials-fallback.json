@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Sample Member",
+    "rating": 5,
+    "quote": "Placeholder testimonial — replace with real Google Reviews once the Place ID is supplied (see .env.example GOOGLE_PLACE_ID).",
+    "isSample": true
+  }
+]

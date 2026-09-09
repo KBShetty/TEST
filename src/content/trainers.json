@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Trainer Name",
+    "specialty": "Strength & Conditioning",
+    "certifications": ["Certified Personal Trainer"],
+    "yearsExperience": 5,
+    "photo": "/images/trainers/placeholder-1.jpg",
+    "quote": "Every rep counts. Let's make yours count together."
+  },
+  {
+    "name": "Trainer Name",
+    "specialty": "Functional Training",
+    "certifications": ["Certified Personal Trainer"],
+    "yearsExperience": 5,
+    "photo": "/images/trainers/placeholder-2.jpg",
+    "quote": "Strength isn't just built in the gym — it's built in how you show up."
+  }
+]

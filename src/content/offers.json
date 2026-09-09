@@ -1,0 +1,12 @@
+[
+  {
+    "id": "sample-offer",
+    "title": "Sample Offer — Replace Me",
+    "description": "This is placeholder content. Edit or add real offers via /admin/offers once the admin page is built, or directly in this file.",
+    "discount": "20% off",
+    "validFrom": "2026-01-01",
+    "validTo": "2026-12-31",
+    "image": "/images/offers/placeholder.jpg",
+    "active": true
+  }
+]
