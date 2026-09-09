@@ -62,7 +62,7 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl bg-card p-6 text-center ring-1 ring-foreground/10">
+      <div className="rounded-xl bg-muted/40 p-6 text-center ring-1 ring-foreground/10">
         <h3 className="text-lg font-semibold">Thanks for reaching out!</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           We&apos;ve received your message and will get back to you shortly.
@@ -72,7 +72,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
       <div className="space-y-2">
         <Label htmlFor="contact-name">Name</Label>
         <Input id="contact-name" {...form.register("name")} />

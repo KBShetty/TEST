@@ -14,9 +14,12 @@ const NAV_LINKS = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="text-lg font-bold tracking-tight">
+        <Link
+          href="/"
+          className="text-lg font-bold tracking-tight transition hover:opacity-80"
+        >
           {siteConfig.name}
         </Link>
 
@@ -25,14 +28,16 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-muted-foreground transition hover:text-foreground"
+              className="relative text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <Button render={<Link href="/pricing" />}>Join Now</Button>
+        <Button render={<Link href="/pricing" />} className="shadow-sm transition-shadow hover:shadow-md">
+          Join Now
+        </Button>
       </div>
     </header>
   );

@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Reveal } from "@/components/Reveal";
 
 // Qualitative trust points only — no invented numbers/stats until the client
 // supplies real figures (e.g. member counts, years in business).
@@ -12,7 +13,10 @@ const TRUST_POINTS = [
 export function TrustBar() {
   return (
     <section className="border-y bg-muted/40">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 py-6 sm:justify-between sm:px-6">
+      <Reveal
+        as="section"
+        className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 py-8 sm:justify-between sm:px-6"
+      >
         {TRUST_POINTS.map((point) => (
           <Badge
             key={point}
@@ -22,7 +26,7 @@ export function TrustBar() {
             {point}
           </Badge>
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }

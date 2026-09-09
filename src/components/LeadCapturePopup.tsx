@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,7 +21,12 @@ import { whatsappLink } from "@/content/site-config";
 const DISMISS_KEY = "aurea-lead-popup-dismissed-until";
 const TRIGGER_DELAY_MS = 10_000;
 const SCROLL_TRIGGER_PERCENT = 0.4;
-const SUPPRESS_DAYS = 7;
+// Dismiss it and it's dismissed: a quick cancel shouldn't be able to reopen
+// on the very next scroll/mouse-out. A short cool-down covers "comes back on
+// the next visit" naturally (closing the tab clears nothing, but the
+// timestamp expires) as well as "or after 5-10 minutes" if they stay on the
+// same page.
+const SUPPRESS_MINUTES = 10;
 
 function isSuppressed() {
   try {
@@ -32,15 +37,12 @@ function isSuppressed() {
   }
 }
 
-function suppressFor(days: number) {
+function suppressFor(minutes: number) {
   try {
-    localStorage.setItem(
-      DISMISS_KEY,
-      String(Date.now() + days * 24 * 60 * 60 * 1000),
-    );
+    localStorage.setItem(DISMISS_KEY, String(Date.now() + minutes * 60 * 1000));
   } catch {
     // localStorage unavailable (private mode etc.) — non-fatal, popup may
-    // just reappear next visit.
+    // just reappear sooner than intended.
   }
 }
 
@@ -61,22 +63,35 @@ export function LeadCapturePopup() {
     },
   });
 
+  // Guards against showing it more than once per page load — dismissing it
+  // must not let the next scroll/mouse-out reopen it immediately, which was
+  // the bug: the listeners stayed attached and fired setOpen(true) again
+  // regardless of dismissal.
+  const hasShownRef = useRef(false);
+
   // First-visit only: ~10s delay or exit-intent (desktop) / scroll-depth
   // (mobile), whichever fires first. Always dismissible per the brief
-  // ("optional popup").
+  // ("optional popup") — once dismissed, it will not reopen on this visit,
+  // and stays suppressed for SUPPRESS_MINUTES even across a reload.
   useEffect(() => {
     if (isSuppressed()) return;
 
-    const timer = setTimeout(() => setOpen(true), TRIGGER_DELAY_MS);
+    const tryOpen = () => {
+      if (hasShownRef.current || isSuppressed()) return;
+      hasShownRef.current = true;
+      setOpen(true);
+    };
+
+    const timer = setTimeout(tryOpen, TRIGGER_DELAY_MS);
 
     const onMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0) setOpen(true);
+      if (e.clientY <= 0) tryOpen();
     };
 
     const onScroll = () => {
       const scrolled =
         window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      if (scrolled >= SCROLL_TRIGGER_PERCENT) setOpen(true);
+      if (scrolled >= SCROLL_TRIGGER_PERCENT) tryOpen();
     };
 
     document.addEventListener("mouseleave", onMouseLeave);
@@ -90,7 +105,7 @@ export function LeadCapturePopup() {
   }, []);
 
   const handleOpenChange = (next: boolean) => {
-    if (!next) suppressFor(SUPPRESS_DAYS);
+    if (!next) suppressFor(SUPPRESS_MINUTES);
     setOpen(next);
   };
 
@@ -103,7 +118,7 @@ export function LeadCapturePopup() {
       });
       if (!res.ok) throw new Error("Request failed");
 
-      suppressFor(SUPPRESS_DAYS);
+      suppressFor(SUPPRESS_MINUTES);
       setSubmitted(true);
 
       // Let the lead self-initiate WhatsApp immediately too.

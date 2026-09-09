@@ -1,4 +1,5 @@
 import { BadgeCheck, Dumbbell, HeartHandshake, Layers } from "lucide-react";
+import { Reveal } from "@/components/Reveal";
 
 const REASONS = [
   {
@@ -29,28 +30,32 @@ const REASONS = [
 
 export function WhyUs() {
   return (
-    <section className="bg-muted/30 py-16">
+    <section className="bg-muted/30 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mb-10 flex flex-col items-center text-center">
+        <Reveal className="mb-12 flex flex-col items-center text-center">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-orange-500">
             Why Us
           </h2>
           <p className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
             Everything you need to actually stick with it
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {REASONS.map(({ icon: Icon, title, description }) => (
-            <div key={title} className="flex flex-col items-center text-center">
+          {REASONS.map(({ icon: Icon, title, description }, i) => (
+            <Reveal
+              key={title}
+              delay={i * 0.1}
+              className="flex flex-col items-center rounded-xl p-4 text-center transition-shadow hover:shadow-md"
+            >
               <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-orange-500/10 text-orange-500">
                 <Icon className="size-6" />
               </div>
               <h3 className="text-base font-semibold">{title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {description}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

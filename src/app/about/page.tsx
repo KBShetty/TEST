@@ -4,6 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/content/site-config";
 import trainersData from "@/content/trainers.json";
 import type { Trainer } from "@/types/content";
+import { stockImages } from "@/content/stock-images";
+import { Reveal } from "@/components/Reveal";
 
 const trainers = trainersData as Trainer[];
 
@@ -15,48 +17,66 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
       {/* Mission / story */}
-      <section className="mx-auto max-w-3xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-          Our Story
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground">
-          {siteConfig.name} was founded on a simple idea: fitness should feel
-          like something you build together, not something you push through
-          alone. What started as a handful of trainers and a shared belief in
-          real, sustainable progress has grown into a full community of
-          members who show up for each other every single day.
-        </p>
-        <p className="mt-4 text-lg text-muted-foreground">
-          Our mission is to make expert coaching, modern equipment, and a
-          genuinely supportive environment accessible to anyone ready to
-          commit to their health — whether that&apos;s your very first workout or
-          your thousandth.
-        </p>
+      <section className="grid items-center gap-12 lg:grid-cols-2">
+        <Reveal className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+            Our Story
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground">
+            {siteConfig.name} was founded on a simple idea: fitness should feel
+            like something you build together, not something you push through
+            alone. What started as a handful of trainers and a shared belief in
+            real, sustainable progress has grown into a full community of
+            members who show up for each other every single day.
+          </p>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Our mission is to make expert coaching, modern equipment, and a
+            genuinely supportive environment accessible to anyone ready to
+            commit to their health — whether that&apos;s your very first workout or
+            your thousandth.
+          </p>
+        </Reveal>
+        <Reveal
+          delay={0.1}
+          className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg"
+        >
+          <Image
+            src={stockImages.about}
+            alt={`Inside ${siteConfig.name}`}
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 40vw, 90vw"
+            priority
+          />
+        </Reveal>
       </section>
 
-      <Separator className="my-16" />
+      <Separator className="my-16 sm:my-20" />
 
       {/* Trainers */}
       <section>
-        <h2 className="text-center text-3xl font-bold tracking-tight">
-          Certified Trainers
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-          Every trainer at {siteConfig.name} is certified, experienced, and
-          genuinely invested in helping you hit your goals.
-        </p>
+        <Reveal className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight">
+            Certified Trainers
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+            Every trainer at {siteConfig.name} is certified, experienced, and
+            genuinely invested in helping you hit your goals.
+          </p>
+        </Reveal>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {trainers.map((trainer) => (
-            <div
+          {trainers.map((trainer, i) => (
+            <Reveal
               key={trainer.name}
-              className="flex flex-col items-center rounded-xl bg-card p-6 text-center ring-1 ring-foreground/10"
+              delay={(i % 3) * 0.1}
+              className="flex flex-col items-center rounded-xl bg-card p-6 text-center shadow-sm ring-1 ring-foreground/10 transition-shadow hover:shadow-md"
             >
-              <div className="relative size-32 overflow-hidden rounded-full bg-muted">
+              <div className="relative size-32 overflow-hidden rounded-full bg-muted ring-2 ring-primary/20">
                 <Image
-                  src={trainer.photo}
+                  src={stockImages.trainers[i % stockImages.trainers.length]}
                   alt={trainer.name}
                   fill
                   className="object-cover"
@@ -76,15 +96,15 @@ export default function AboutPage() {
               <p className="mt-4 text-sm italic text-muted-foreground">
                 &ldquo;{trainer.quote}&rdquo;
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <Separator className="my-16" />
+      <Separator className="my-16 sm:my-20" />
 
       {/* Philosophy / community */}
-      <section className="mx-auto max-w-3xl text-center">
+      <Reveal as="section" className="mx-auto max-w-3xl text-center">
         <h2 className="text-3xl font-bold tracking-tight">
           More Than a Gym
         </h2>
@@ -99,7 +119,7 @@ export default function AboutPage() {
           simply trying to feel stronger in everyday life, you&apos;ll find people
           here who are training right alongside you.
         </p>
-      </section>
+      </Reveal>
     </div>
   );
 }

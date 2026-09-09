@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   Card,
   CardHeader,
@@ -11,7 +12,17 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { stockImages } from "@/content/stock-images";
+import { Reveal } from "@/components/Reveal";
 import type { Offer } from "@/types/content";
+
+// Content offers currently ship with placeholder image paths (e.g.
+// /images/offers/placeholder.jpg) that don't exist on disk — fall back to
+// the curated stock photo whenever an offer doesn't point at a real,
+// uploaded image.
+function resolveOfferImage(image: string) {
+  return image.startsWith("/images/") ? stockImages.offer : image;
+}
 
 function formatDate(iso: string) {
   try {
@@ -80,28 +91,39 @@ export function OffersList() {
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {offers.map((offer) => (
-        <Card key={offer.id}>
-          <CardHeader>
-            <div className="flex items-center justify-between gap-2">
-              <CardTitle>{offer.title}</CardTitle>
-              <Badge>{offer.discount}</Badge>
+      {offers.map((offer, i) => (
+        <Reveal key={offer.id} delay={(i % 3) * 0.1}>
+          <Card className="overflow-hidden py-0 shadow-sm transition-shadow hover:shadow-md">
+            <div className="relative aspect-[16/10] w-full">
+              <Image
+                src={resolveOfferImage(offer.image)}
+                alt={offer.title}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
+              <Badge className="absolute right-3 top-3 px-3 py-1 text-sm font-semibold shadow">
+                {offer.discount}
+              </Badge>
             </div>
-            <CardDescription>{offer.description}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground">
-              Valid until {formatDate(offer.validTo)}
-            </p>
-          </CardContent>
-          <CardFooter className="px-4 pb-4">
-            <WhatsAppButton
-              variant="inline"
-              className="w-full justify-center"
-              message={`Hi, I'd like to know more about the "${offer.title}" offer`}
-            />
-          </CardFooter>
-        </Card>
+            <CardHeader>
+              <CardTitle>{offer.title}</CardTitle>
+              <CardDescription>{offer.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-xs text-muted-foreground">
+                Valid until {formatDate(offer.validTo)}
+              </p>
+            </CardContent>
+            <CardFooter className="px-4 pb-4">
+              <WhatsAppButton
+                variant="inline"
+                className="w-full justify-center"
+                message={`Hi, I'd like to know more about the "${offer.title}" offer`}
+              />
+            </CardFooter>
+          </Card>
+        </Reveal>
       ))}
     </div>
   );

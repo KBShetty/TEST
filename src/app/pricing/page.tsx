@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Reveal } from "@/components/Reveal";
 import { siteConfig } from "@/content/site-config";
 
 export const metadata: Metadata = {
@@ -64,8 +65,8 @@ const TIERS = [
 
 export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <div className="mx-auto max-w-2xl text-center">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+      <Reveal className="mx-auto max-w-2xl text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
           Membership & Pricing
         </h1>
@@ -73,16 +74,19 @@ export default function PricingPage() {
           Simple, transparent plans built around how often — and how deeply —
           you want to train with us.
         </p>
-      </div>
+      </Reveal>
 
-      <div className="mt-16 grid gap-8 md:grid-cols-3">
+      <Reveal
+        delay={0.1}
+        className="mt-16 grid gap-8 md:grid-cols-3"
+      >
         {TIERS.map((tier) => (
           <Card
             key={tier.name}
             className={
               tier.featured
-                ? "relative border-2 ring-2 ring-primary"
-                : "relative"
+                ? "relative border-2 ring-2 ring-primary shadow-md transition-shadow hover:shadow-lg"
+                : "relative shadow-sm transition-shadow hover:shadow-md"
             }
           >
             {tier.featured && (
@@ -121,7 +125,7 @@ export default function PricingPage() {
             </CardFooter>
           </Card>
         ))}
-      </div>
+      </Reveal>
 
       <p className="mx-auto mt-10 max-w-2xl text-center text-xs text-muted-foreground">
         Pricing may vary based on offers and location. Message us on WhatsApp

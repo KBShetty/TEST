@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import testimonials from "@/content/testimonials-fallback.json";
+import { Reveal } from "@/components/Reveal";
 import type { Testimonial } from "@/types/content";
 
 // NOTE: this reads the static fallback file for now. Once `GOOGLE_PLACE_ID`
@@ -26,28 +27,38 @@ export function TestimonialsCarousel() {
   const current = ITEMS[index];
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div className="mb-10 flex flex-col items-center text-center">
+    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+      <Reveal className="mb-10 flex flex-col items-center text-center">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-orange-500">
           What Our Members Say
         </h2>
         <p className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
           Real stories from the floor
         </p>
-      </div>
+      </Reveal>
 
-      <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 rounded-xl border bg-card px-6 py-10 text-center">
+      <Reveal
+        delay={0.1}
+        className="relative mx-auto flex max-w-2xl flex-col items-center gap-5 rounded-2xl border bg-card px-6 py-12 text-center shadow-sm sm:px-12"
+      >
+        <Quote
+          aria-hidden
+          className="size-10 text-orange-500/20"
+          fill="currentColor"
+        />
         <div className="flex gap-1 text-orange-500">
           {Array.from({ length: 5 }).map((_, i) => (
             <Star
               key={i}
-              className="size-4"
+              className="size-5"
               fill={i < current.rating ? "currentColor" : "none"}
             />
           ))}
         </div>
-        <p className="text-lg italic leading-relaxed">“{current.quote}”</p>
-        <p className="text-sm font-semibold text-muted-foreground">
+        <p className="text-xl leading-relaxed font-medium italic">
+          &ldquo;{current.quote}&rdquo;
+        </p>
+        <p className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           {current.name}
         </p>
 
@@ -66,7 +77,7 @@ export function TestimonialsCarousel() {
             ))}
           </div>
         )}
-      </div>
+      </Reveal>
     </section>
   );
 }

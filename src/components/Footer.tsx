@@ -12,20 +12,23 @@ const QUICK_LINKS = [
 export function Footer() {
   return (
     <footer className="border-t bg-muted/30">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-3">
         <div>
-          <p className="text-lg font-bold">{siteConfig.name}</p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-lg font-bold tracking-tight">{siteConfig.name}</p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {siteConfig.description}
           </p>
         </div>
 
         <div>
-          <p className="text-sm font-semibold">Quick Links</p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+          <p className="text-sm font-semibold tracking-wide">Quick Links</p>
+          <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             {QUICK_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="hover:text-foreground">
+                <Link
+                  href={link.href}
+                  className="transition-colors hover:text-foreground"
+                >
                   {link.label}
                 </Link>
               </li>
@@ -34,8 +37,8 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-sm font-semibold">Visit Us</p>
-          <address className="mt-3 space-y-1 text-sm not-italic text-muted-foreground">
+          <p className="text-sm font-semibold tracking-wide">Visit Us</p>
+          <address className="mt-4 space-y-1.5 text-sm not-italic leading-relaxed text-muted-foreground">
             <p>{siteConfig.address.line1}</p>
             <p>
               {siteConfig.address.city}, {siteConfig.address.state}{" "}
@@ -55,12 +58,15 @@ export function Footer() {
             reserved.
           </p>
           <div className="flex gap-4">
-            <Link href="/legal/privacy-policy" className="hover:text-foreground">
+            <Link
+              href="/legal/privacy-policy"
+              className="transition-colors hover:text-foreground"
+            >
               Privacy Policy
             </Link>
             <Link
               href="/legal/terms-of-membership"
-              className="hover:text-foreground"
+              className="transition-colors hover:text-foreground"
             >
               Membership Terms
             </Link>

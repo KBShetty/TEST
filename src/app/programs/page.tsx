@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { siteConfig } from "@/content/site-config";
+import { stockImages } from "@/content/stock-images";
+import { Reveal } from "@/components/Reveal";
 import programsData from "@/content/programs.json";
 import type { Program } from "@/types/content";
 
@@ -16,8 +18,8 @@ export const metadata: Metadata = {
 
 export default function ProgramsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <div className="mx-auto max-w-2xl text-center">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+      <Reveal className="mx-auto max-w-2xl text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
           Programs & Classes
         </h1>
@@ -25,7 +27,7 @@ export default function ProgramsPage() {
           Whatever your goal, we have a program built to get you there —
           guided every step of the way by certified trainers.
         </p>
-      </div>
+      </Reveal>
 
       <div className="mt-16 space-y-16">
         {programs.map((program, index) => (
@@ -34,14 +36,14 @@ export default function ProgramsPage() {
             id={program.slug}
             className="scroll-mt-24"
           >
-            <div
+            <Reveal
               className={`grid items-center gap-8 md:grid-cols-2 ${
                 index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
-              <div className="relative aspect-video overflow-hidden rounded-xl bg-muted">
+              <div className="relative aspect-video overflow-hidden rounded-xl bg-muted shadow-sm transition-shadow hover:shadow-md">
                 <Image
-                  src={program.image}
+                  src={stockImages.programs[program.slug] ?? program.image}
                   alt={program.name}
                   fill
                   className="object-cover"
@@ -73,7 +75,7 @@ export default function ProgramsPage() {
                   />
                 </div>
               </div>
-            </div>
+            </Reveal>
 
             {index < programs.length - 1 && <Separator className="mt-16" />}
           </section>
