@@ -2,8 +2,11 @@
 // brand assets/business details. Nothing else in the codebase should
 // hardcode these values — import from here instead.
 //
-// NOTE: every value below is a PLACEHOLDER until Aurea Fitness sends their
-// real logo, colors, and business details (see /client-intake-checklist.md).
+// Business details below are confirmed (see /client-intake-checklist.md and
+// the "latest website details" doc). Still pending from the client: the
+// final logo file itself (vector/PNG, transparent bg — only an Instagram
+// screenshot has been shared so far), Google Place ID, trainer/gallery
+// content, and pricing.
 
 export const siteConfig = {
   name: "Aurea Fitness",
@@ -14,26 +17,28 @@ export const siteConfig = {
     "Stronger Every Day, Together",
   ],
   description:
-    "Aurea Fitness is a modern gym offering certified personal training, group classes, functional training, and cardio/endurance programs in a supportive community.",
+    "Aurea Fitness is a modern 24/7 gym in Kandivali West, Mumbai, offering certified personal training, group classes, functional training, and cardio/endurance programs in a supportive community.",
 
-  // Placeholder contact details — replace once the client confirms.
-  phone: "+91 00000 00000",
-  whatsappNumber: "910000000000", // E.164, no + or spaces, used for wa.me links
+  phone: "+91 91371 76414",
+  whatsappNumber: "919137176414", // E.164, no + or spaces, used for wa.me links
   email: "hello@aureafitness.example",
   address: {
-    line1: "123 Fitness Street",
-    city: "Your City",
-    state: "State",
-    postalCode: "000000",
+    line1: "Mathuradas Road, Bhagat Colony",
+    city: "Kandivali West, Mumbai",
+    state: "Maharashtra",
+    postalCode: "400067",
     country: "India",
   },
+  googleMapsUrl: "https://maps.app.goo.gl/g5tYhCsajdo2iNnX8?g_st=ac",
+
+  // Genuinely 24/7 — not staffed hours vs. access hours.
   hours: {
-    weekdays: "6:00 AM – 10:00 PM",
-    weekends: "7:00 AM – 8:00 PM",
+    weekdays: "Open 24/7",
+    weekends: "Open 24/7",
   },
 
   social: {
-    instagram: "",
+    instagram: "https://www.instagram.com/aureafitnessofficial",
     facebook: "",
     youtube: "",
   },
@@ -42,11 +47,12 @@ export const siteConfig = {
   // Leave empty to fall back to content/testimonials-fallback.json.
   googlePlaceId: "",
 
-  // Placeholder brand palette (swap for the client's real colors in
-  // src/app/globals.css CSS variables once supplied).
+  // Approximate palette read off the Instagram profile screenshot (black
+  // background, gold/amber "AF" mark + wordmark) — swap for exact values
+  // once the client sends the actual logo file (vector/PNG, transparent bg).
   brand: {
-    primary: "#0f172a", // slate-900 — placeholder "energetic dark" primary
-    accent: "#f97316", // orange-500 — placeholder motivational accent
+    primary: "#0a0a0a", // near-black base, matches the logo's dark circle
+    accent: "#d4af37", // gold, matches the logo mark (replaces the old generic orange-500)
   },
 } as const;
 

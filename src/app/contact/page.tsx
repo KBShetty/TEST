@@ -52,6 +52,16 @@ export default function ContactPage() {
                   <br />
                   {siteConfig.address.country}
                 </p>
+                {siteConfig.googleMapsUrl && (
+                  <a
+                    href={siteConfig.googleMapsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1.5 inline-block text-sm font-medium text-primary hover:underline"
+                  >
+                    Get Directions
+                  </a>
+                )}
               </div>
             </div>
 
@@ -60,9 +70,15 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold">Hours</h3>
                 <p className="text-sm text-muted-foreground">
-                  Weekdays: {siteConfig.hours.weekdays}
-                  <br />
-                  Weekends: {siteConfig.hours.weekends}
+                  {siteConfig.hours.weekdays === siteConfig.hours.weekends
+                    ? `${siteConfig.hours.weekdays} — every day`
+                    : (
+                      <>
+                        Weekdays: {siteConfig.hours.weekdays}
+                        <br />
+                        Weekends: {siteConfig.hours.weekends}
+                      </>
+                    )}
                 </p>
               </div>
             </div>

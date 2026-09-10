@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Instagram, MapPin } from "lucide-react";
 import { siteConfig } from "@/content/site-config";
 
 const QUICK_LINKS = [
@@ -44,10 +45,39 @@ export function Footer() {
               {siteConfig.address.city}, {siteConfig.address.state}{" "}
               {siteConfig.address.postalCode}
             </p>
-            <p>Weekdays: {siteConfig.hours.weekdays}</p>
-            <p>Weekends: {siteConfig.hours.weekends}</p>
+            {siteConfig.hours.weekdays === siteConfig.hours.weekends ? (
+              <p>{siteConfig.hours.weekdays} — every day</p>
+            ) : (
+              <>
+                <p>Weekdays: {siteConfig.hours.weekdays}</p>
+                <p>Weekends: {siteConfig.hours.weekends}</p>
+              </>
+            )}
             <p>{siteConfig.phone}</p>
+            {siteConfig.googleMapsUrl && (
+              <p>
+                <a
+                  href={siteConfig.googleMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                >
+                  <MapPin className="size-4" /> Get Directions
+                </a>
+              </p>
+            )}
           </address>
+          {siteConfig.social.instagram && (
+            <a
+              href={siteConfig.social.instagram}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Aurea Fitness on Instagram"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Instagram className="size-4" /> Follow us on Instagram
+            </a>
+          )}
         </div>
       </div>
 
